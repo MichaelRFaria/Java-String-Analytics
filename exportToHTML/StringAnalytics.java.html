@@ -1,0 +1,263 @@
+<html>
+<head>
+<title>StringAnalytics.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #c678dd;}
+.s1 { color: #abb2bf;}
+.s2 { color: #5c6370;}
+.s3 { color: #d19a66;}
+</style>
+</head>
+<body bgcolor="#282c34">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+StringAnalytics.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java.util.*;</span>
+
+<span class="s2">/**</span>
+ <span class="s2">* Class of operations on ordered lists of strings.</span>
+ <span class="s2">* You must not change the signatures of the methods supplied. </span>
+ <span class="s2">* You must not change the signatures of the methods supplied. </span>
+ <span class="s2">* You must not change the signatures of the methods supplied. </span>
+ <span class="s2">*/</span>
+<span class="s0">public class </span><span class="s1">StringAnalytics {</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Returns the shortest string in the list. If there are several</span>
+     <span class="s2">* strings of the same shortest length, the one that occurs earliest</span>
+     <span class="s2">* is returned.</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a list of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">the shortest string in the list.</span>
+     <span class="s2">*/</span>
+    <span class="s0">public </span><span class="s1">String shortestWord(StringList a) {</span>
+        <span class="s1">String shortestWord = a.get(</span><span class="s3">0</span><span class="s1">);</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s1">String currentWord = a.get(i);</span>
+
+            <span class="s0">if </span><span class="s1">(shortestWord.length() &gt; currentWord.length()) {</span>
+               <span class="s1">shortestWord = currentWord;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">shortestWord;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s2">/**</span>
+     <span class="s2">* Returns the number of unique elements in the list</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a list of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">number of unique elements in the list.</span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">countUnique(StringList a) {</span>
+        <span class="s0">int </span><span class="s1">uniqueCount = </span><span class="s3">1</span><span class="s1">;</span>
+        <span class="s1">String previousString = a.get(</span><span class="s3">0</span><span class="s1">);</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">1</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s1">String currentString = a.get(i);</span>
+
+            <span class="s0">if </span><span class="s1">(!currentString.equals(previousString)) {</span>
+                <span class="s1">uniqueCount++;</span>
+                <span class="s1">previousString = currentString;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">uniqueCount;</span>
+    <span class="s1">}</span>
+	
+
+    <span class="s2">/**</span>
+     <span class="s2">* Returns the number of palindrome strings in the list.</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">number of palindrome strings in the list. </span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">countPalindrome(StringList a) {</span>
+        <span class="s0">int </span><span class="s1">palindromeCount = </span><span class="s3">0</span><span class="s1">;</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s1">String stringCheck = a.get(i);</span>
+            <span class="s0">boolean </span><span class="s1">palindrome = </span><span class="s0">true</span><span class="s1">;</span>
+
+            <span class="s2">// Invariant: loop counter (j) is less than half of the length of the string to check (stringCheck)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s3">0</span><span class="s1">; j &lt; stringCheck.length() / </span><span class="s3">2</span><span class="s1">; j++) {</span>
+                <span class="s0">if </span><span class="s1">(stringCheck.charAt(j) != stringCheck.charAt(stringCheck.length() - j - </span><span class="s3">1</span><span class="s1">)) {</span>
+                    <span class="s1">palindrome = </span><span class="s0">false</span><span class="s1">;</span>
+                    <span class="s0">break</span><span class="s1">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+
+            <span class="s0">if </span><span class="s1">(palindrome) {</span>
+                <span class="s1">palindromeCount++;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">palindromeCount;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Search for a string in an ordered collection</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">element that occurs the least frequent in the list. If two or more are equally least frequent, return the one that comes earliest</span>
+     <span class="s2">*/</span>
+    <span class="s0">public </span><span class="s1">String leastFrequent (StringList a) {</span>
+        <span class="s1">TreeMap&lt;String, Integer&gt; leastFrequent = </span><span class="s0">new </span><span class="s1">TreeMap&lt;&gt;();</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s1">String currentString = a.get(i);</span>
+            <span class="s1">leastFrequent.put(currentString, leastFrequent.getOrDefault(currentString,</span><span class="s3">0</span><span class="s1">) + </span><span class="s3">1</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s1">String leastElement = leastFrequent.firstKey();</span>
+        <span class="s0">int </span><span class="s1">lowestValue = leastFrequent.get(leastElement);</span>
+
+        <span class="s2">// Invariant: loop has not iterated over every element in the set (leastFrequent.keySet()) and an element of length 1 has not been found</span>
+        <span class="s0">for </span><span class="s1">(String i: leastFrequent.keySet()) {</span>
+            <span class="s0">int </span><span class="s1">currentValue = leastFrequent.get(i);</span>
+
+            <span class="s0">if </span><span class="s1">(currentValue &lt; lowestValue) {</span>
+                <span class="s1">lowestValue = currentValue;</span>
+                <span class="s1">leastElement = i;</span>
+            <span class="s1">} </span><span class="s0">if </span><span class="s1">(lowestValue == </span><span class="s3">1</span><span class="s1">) {</span>
+                <span class="s0">return </span><span class="s1">leastElement;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">leastElement;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Search for a string in an ordered collection</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">str string to search for</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">number of strings less than k in order</span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">countLess(StringList a, String str) {</span>
+        <span class="s0">int </span><span class="s1">low = </span><span class="s3">0</span><span class="s1">;</span>
+        <span class="s0">int </span><span class="s1">high = a.size() - </span><span class="s3">1</span><span class="s1">;</span>
+
+        <span class="s2">// Invariant: the list's upper pointer (high) is equal or greater than the list's lower pointer (low) and the string to search for has not been found</span>
+        <span class="s0">while </span><span class="s1">(low &lt;= high) {</span>
+            <span class="s0">int </span><span class="s1">mid = (low + high) / </span><span class="s3">2</span><span class="s1">;</span>
+
+            <span class="s0">if </span><span class="s1">(a.get(mid).compareTo(str) == </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s0">return </span><span class="s1">mid;</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(a.get(mid).compareTo(str) &lt; </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s1">low = mid + </span><span class="s3">1</span><span class="s1">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">high = mid - </span><span class="s3">1</span><span class="s1">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">-</span><span class="s3">1</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Search for a string in an ordered collection</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">k integer - top k</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">k most frequent elements in the list</span>
+     <span class="s2">*/</span>
+    <span class="s0">public </span><span class="s1">String [] topKFrequent (StringList a, </span><span class="s0">int </span><span class="s1">k) {</span>
+        <span class="s1">HashMap&lt;String, Integer&gt; mostFrequent = </span><span class="s0">new </span><span class="s1">HashMap&lt;&gt;();</span>
+        <span class="s1">ArrayList&lt;String&gt; topK = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;();</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s1">String currentString = a.get(i);</span>
+            <span class="s1">mostFrequent.put(currentString, mostFrequent.getOrDefault(currentString,</span><span class="s3">0</span><span class="s1">) + </span><span class="s3">1</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s0">int </span><span class="s1">maxFrequency = Collections.max(mostFrequent.values());</span>
+
+        <span class="s2">// Invariant: the size of the ArrayList is less or equal to the number of sought after most frequent values (k)</span>
+        <span class="s0">while </span><span class="s1">(topK.size() &lt; k) {</span>
+            <span class="s2">// Invariant: loop has not iterated over every element in the set (mostFrequent.keySet()) and the size of the ArrayList does not equal the number of sought after most frequent values (k)</span>
+            <span class="s0">for </span><span class="s1">(String i : mostFrequent.keySet()) {</span>
+                <span class="s0">if </span><span class="s1">(mostFrequent.get(i) == maxFrequency) {</span>
+                    <span class="s1">topK.add(i);</span>
+                <span class="s1">} </span><span class="s0">if </span><span class="s1">(topK.size() == k) {</span>
+                    <span class="s0">break</span><span class="s1">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s1">maxFrequency--;</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">topK.toArray(</span><span class="s0">new </span><span class="s1">String[topK.size()]);</span>
+    <span class="s1">}</span>
+	
+
+    <span class="s2">/**</span>
+     <span class="s2">* Search for a string in an ordered collection</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">str string to search for</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">number of strings greater than or equal to k in order</span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">countGreaterOrEqual(StringList a, String str) {</span>
+        <span class="s0">int </span><span class="s1">low = </span><span class="s3">0</span><span class="s1">;</span>
+        <span class="s0">int </span><span class="s1">high = a.size() - </span><span class="s3">1</span><span class="s1">;</span>
+
+        <span class="s2">// Invariant: the list's upper pointer (high) is equal or greater than the list's lower pointer (low) and the string to search for has not been found</span>
+        <span class="s0">while </span><span class="s1">(low &lt;= high) {</span>
+            <span class="s0">int </span><span class="s1">mid = (low + high) / </span><span class="s3">2</span><span class="s1">;</span>
+            <span class="s0">if </span><span class="s1">(a.get(mid).compareTo(str) == </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s0">return </span><span class="s1">a.size() - </span><span class="s3">1 </span><span class="s1">- mid;</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(a.get(mid).compareTo(str) &lt; </span><span class="s3">0</span><span class="s1">) {</span>
+                <span class="s1">low = mid + </span><span class="s3">1</span><span class="s1">;</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">high = mid - </span><span class="s3">1</span><span class="s1">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s3">0</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Search for a string in an ordered collection</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a - collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">prefix - prefix string</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">number of strings having prefix in collection of strings</span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">countPrefix(StringList a, String prefix) {</span>
+        <span class="s0">int </span><span class="s1">prefixCount = </span><span class="s3">0</span><span class="s1">;</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s0">if </span><span class="s1">(a.get(i).startsWith(prefix)) {</span>
+                <span class="s1">prefixCount++;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">prefixCount;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* Count number of unmatches in an ordered collection</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">a collection of strings, in ascending order</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">prefix first string to search for</span>
+     <span class="s2">* </span><span class="s0">@param </span><span class="s2">substring second string to search for</span>
+     <span class="s2">* </span><span class="s0">@return </span><span class="s2">number of elements that neither start with the specified prefix nor contain the given substring</span>
+     <span class="s2">*/</span>
+    <span class="s0">public int </span><span class="s1">countUnMatches(StringList a, String prefix, String substring) {</span>
+        <span class="s0">int </span><span class="s1">unmatchesCount = </span><span class="s3">0</span><span class="s1">;</span>
+
+        <span class="s2">// Invariant: loop counter (i) is less than the size of the list (a)</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s1">; i &lt; a.size(); i++) {</span>
+            <span class="s1">String currentString = a.get(i);</span>
+
+            <span class="s0">if </span><span class="s1">(!(currentString.startsWith(prefix) || currentString.contains(substring))) {</span>
+                <span class="s1">unmatchesCount++;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">unmatchesCount;</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
